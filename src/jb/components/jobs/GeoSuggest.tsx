@@ -1,17 +1,17 @@
-"use client";
+
 
 import * as React from "react";
 import { FaLocationDot, FaXmark } from "react-icons/fa6";
-import { cn, debounce } from "@/lib/utils";
-import { GeoSuggestResult } from "@/lib/api/types";
-import { getGeoSuggestions } from "@/app/actions/geo";
+import { cn, debounce } from "@/jb/lib/utils";
+import { GeoSuggestResult } from "@/jb/lib/api/types";
+import { getGeoSuggestions } from "@/jb/server/jobs.functions";
 import {
   ComboboxRoot,
   ComboboxInput,
   ComboboxOptions,
   ComboboxOption,
-} from "@/components/ui/Combobox";
-import { Badge } from "@/components/ui/Badge";
+} from "@/jb/components/ui/Combobox";
+import { Badge } from "@/jb/components/ui/Badge";
 
 interface GeoSuggestProps {
   selectedLocations: GeoSuggestResult[];

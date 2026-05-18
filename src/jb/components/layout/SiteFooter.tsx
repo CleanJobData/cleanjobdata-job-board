@@ -1,6 +1,6 @@
 import * as React from "react";
-import Image from "next/image";
-import { Typography } from "@/components/ui/Typography";
+import { Image } from "@/jb/lib/router-compat";
+import { Typography } from "@/jb/components/ui/Typography";
 
 export function SiteFooter() {
   return (

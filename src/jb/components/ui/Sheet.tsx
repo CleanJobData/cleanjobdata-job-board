@@ -1,4 +1,4 @@
-"use client";
+
 
 import * as React from "react";
 import {
@@ -8,7 +8,7 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { FaXmark } from "react-icons/fa6";
-import { cn } from "@/lib/utils";
+import { cn } from "@/jb/lib/utils";
 
 interface SheetProps {
   isOpen: boolean;

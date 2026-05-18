@@ -1,7 +1,7 @@
-"use client";
+
 
 import * as React from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "@/jb/lib/router-compat";
 import {
   FaMagnifyingGlass,
   FaLocationDot,
@@ -11,17 +11,17 @@ import {
   FaSliders,
   FaXmark,
 } from "react-icons/fa6";
-import { Input } from "@/components/ui/Input";
-import { Combobox, ComboboxOptionType } from "@/components/ui/Combobox";
-import { Listbox, ListboxOption } from "@/components/ui/Listbox";
-import { Switch } from "@/components/ui/Switch";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { Dialog } from "@/components/ui/Dialog";
-import { GeoSuggest } from "@/components/jobs/GeoSuggest";
-import { cn, formatNumber } from "@/lib/utils";
+import { Input } from "@/jb/components/ui/Input";
+import { Combobox, ComboboxOptionType } from "@/jb/components/ui/Combobox";
+import { Listbox, ListboxOption } from "@/jb/components/ui/Listbox";
+import { Switch } from "@/jb/components/ui/Switch";
+import { Button } from "@/jb/components/ui/Button";
+import { Badge } from "@/jb/components/ui/Badge";
+import { Dialog } from "@/jb/components/ui/Dialog";
+import { GeoSuggest } from "@/jb/components/jobs/GeoSuggest";
+import { cn, formatNumber } from "@/jb/lib/utils";
 import countriesData from "@/data/countries.json";
-import { GeoSuggestResult } from "@/lib/api/types";
+import { GeoSuggestResult } from "@/jb/lib/api/types";
 
 // Options for Seniority
 const seniorityOptions: ListboxOption[] = [

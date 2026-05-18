@@ -1,7 +1,7 @@
-"use client";
+
 
 import * as React from "react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/jb/components/ui/Button";
 import { FaArrowsRotate } from "react-icons/fa6";
 
 export function RetryButton() {

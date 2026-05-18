@@ -1,4 +1,4 @@
-"use client";
+
 
 import * as React from "react";
 import {
@@ -10,7 +10,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { FaCheck, FaArrowsUpDown, FaXmark, FaMagnifyingGlass } from "react-icons/fa6";
-import { cn } from "@/lib/utils";
+import { cn } from "@/jb/lib/utils";
 import { Badge } from "./Badge";
 
 /**

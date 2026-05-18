@@ -1,4 +1,4 @@
-"use client";
+
 
 import * as React from "react";
 import {
@@ -20,13 +20,13 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa6";
-import { JobDetail } from "@/lib/api/types";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Typography } from "@/components/ui/Typography";
-import { formatAddedAgo } from "@/lib/formatAddedAgo";
-import { cn, formatNumber } from "@/lib/utils";
-import { CompanyLogo } from "@/components/jobs/CompanyLogo";
+import { JobDetail } from "@/jb/lib/api/types";
+import { Badge } from "@/jb/components/ui/Badge";
+import { Button } from "@/jb/components/ui/Button";
+import { Typography } from "@/jb/components/ui/Typography";
+import { formatAddedAgo } from "@/jb/lib/formatAddedAgo";
+import { cn, formatNumber } from "@/jb/lib/utils";
+import { CompanyLogo } from "@/jb/components/jobs/CompanyLogo";
 
 interface JobDetailViewProps {
   job: JobDetail;

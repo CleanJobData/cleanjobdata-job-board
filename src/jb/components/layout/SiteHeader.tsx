@@ -1,7 +1,7 @@
 import * as React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { Link } from "@/jb/lib/router-compat";
+import { Image } from "@/jb/lib/router-compat";
+import { ThemeToggle } from "@/jb/components/theme/ThemeToggle";
 
 export function SiteHeader() {
   return (

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Card, CardContent } from "@/components/ui/Card";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Card, CardContent } from "@/jb/components/ui/Card";
+import { Skeleton } from "@/jb/components/ui/Skeleton";
 
 export function JobCardSkeleton() {
   return (

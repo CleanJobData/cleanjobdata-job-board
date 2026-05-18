@@ -1,7 +1,7 @@
-"use client";
+
 
 import { Switch as HeadlessSwitch } from "@headlessui/react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/jb/lib/utils";
 
 interface SwitchProps {
   checked: boolean;

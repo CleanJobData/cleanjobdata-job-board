@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Job } from "@/lib/api/types";
+import { Job } from "@/jb/lib/api/types";
 import { JobCard } from "./JobCard";
 import { JobCardSkeleton } from "./JobCardSkeleton";
-import { Typography } from "@/components/ui/Typography";
+import { Typography } from "@/jb/components/ui/Typography";
 
 interface JobGridProps {
   jobs: Job[];

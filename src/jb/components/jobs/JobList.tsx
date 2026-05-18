@@ -1,11 +1,11 @@
-"use client";
+
 
 import * as React from "react";
-import { Job, ListResponse } from "@/lib/api/types";
-import { ListQuery } from "@/lib/jobs/query-types";
+import { Job, ListResponse } from "@/jb/lib/api/types";
+import { ListQuery } from "@/jb/lib/jobs/query-types";
 import { JobGrid } from "./JobGrid";
-import { Button } from "@/components/ui/Button";
-import { getJobsAction } from "@/app/actions/jobs";
+import { Button } from "@/jb/components/ui/Button";
+import { getJobsAction } from "@/jb/server/jobs.functions";
 import { FaSpinner } from "react-icons/fa6";
 
 interface JobListProps {

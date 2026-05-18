@@ -1,10 +1,10 @@
-"use client";
+
 
 import * as React from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "@/jb/lib/router-compat";
 import { FaXmark } from "react-icons/fa6";
-import { Badge } from "@/components/ui/Badge";
-import { FilterApplied } from "@/lib/api/types";
+import { Badge } from "@/jb/components/ui/Badge";
+import { FilterApplied } from "@/jb/lib/api/types";
 
 interface ActiveFilterChipsProps {
   filtersApplied: FilterApplied[];

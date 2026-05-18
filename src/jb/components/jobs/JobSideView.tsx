@@ -1,10 +1,10 @@
-"use client";
+
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { Sheet } from "@/components/ui/Sheet";
+import { useRouter } from "@/jb/lib/router-compat";
+import { Sheet } from "@/jb/components/ui/Sheet";
 import { JobDetailView } from "./JobDetailView";
-import { JobDetail } from "@/lib/api/types";
+import { JobDetail } from "@/jb/lib/api/types";
 import { FaSpinner } from "react-icons/fa6";
 
 interface JobSideViewProps {

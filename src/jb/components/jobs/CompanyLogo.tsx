@@ -1,8 +1,8 @@
-"use client";
+
 
 import * as React from "react";
 import { FaBuilding, FaBriefcase } from "react-icons/fa6";
-import { cn } from "@/lib/utils";
+import { cn } from "@/jb/lib/utils";
 
 type FallbackIcon = "building" | "briefcase";
 

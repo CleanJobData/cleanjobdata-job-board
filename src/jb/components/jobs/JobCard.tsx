@@ -1,14 +1,14 @@
 import * as React from "react";
-import Link from "next/link";
+import { Link } from "@/jb/lib/router-compat";
 import { FaLocationDot, FaGlobe, FaDollarSign, FaClock } from "react-icons/fa6";
-import { CompanyLogo } from "@/components/jobs/CompanyLogo";
-import { Job } from "@/lib/api/types";
-import { Card, CardContent } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Typography } from "@/components/ui/Typography";
-import { clampLocationLabel } from "@/lib/clampLocation";
-import { formatAddedAgo } from "@/lib/formatAddedAgo";
-import { formatNumber } from "@/lib/utils";
+import { CompanyLogo } from "@/jb/components/jobs/CompanyLogo";
+import { Job } from "@/jb/lib/api/types";
+import { Card, CardContent } from "@/jb/components/ui/Card";
+import { Badge } from "@/jb/components/ui/Badge";
+import { Typography } from "@/jb/components/ui/Typography";
+import { clampLocationLabel } from "@/jb/lib/clampLocation";
+import { formatAddedAgo } from "@/jb/lib/formatAddedAgo";
+import { formatNumber } from "@/jb/lib/utils";
 
 interface JobCardProps {
   job: Job;

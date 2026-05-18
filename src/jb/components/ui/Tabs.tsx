@@ -1,7 +1,7 @@
-"use client";
+
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/jb/lib/utils";
 
 const Tabs = React.forwardRef<
   HTMLDivElement,
