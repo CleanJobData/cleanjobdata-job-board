@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "@/jb/lib/router-compat";
 import { FaLocationDot, FaGlobe, FaDollarSign, FaClock } from "react-icons/fa6";
 import { CompanyLogo } from "@/jb/components/jobs/CompanyLogo";
+import { useJobSideView } from "@/jb/components/jobs/JobSideViewProvider";
 import { Job } from "@/jb/lib/api/types";
 import { Card, CardContent } from "@/jb/components/ui/Card";
 import { Badge } from "@/jb/components/ui/Badge";
@@ -15,6 +16,7 @@ interface JobCardProps {
 }
 
 export function JobCard({ job }: JobCardProps) {
+  const sideView = useJobSideView();
   const { label: locationLabel } = clampLocationLabel(job.location);
   const addedAgo = formatAddedAgo(job.published);
 
@@ -30,7 +32,17 @@ export function JobCard({ job }: JobCardProps) {
   }, [job.salary_text, job.salary_min, job.salary_max, job.salary_currency]);
 
   return (
-    <Link href={`/jobs/${job.id}`} scroll={false} className="block group h-full">
+    <Link
+      href={`/jobs/${job.id}`}
+      scroll={false}
+      className="block group h-full"
+      onClick={(e: React.MouseEvent) => {
+        if (sideView && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+          e.preventDefault();
+          sideView.openJob(job.id);
+        }
+      }}
+    >
       <Card className="hover:border-primary/50 transition-all duration-300 hover:shadow-md h-full flex flex-col">
         <CardContent className="p-4 sm:p-6 space-y-5 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-4">

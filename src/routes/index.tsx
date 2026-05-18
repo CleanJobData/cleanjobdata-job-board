@@ -10,6 +10,7 @@ import { JobFilters } from "@/jb/components/jobs/JobFilters";
 import { ActiveFilterChips } from "@/jb/components/jobs/ActiveFilterChips";
 import { Typography } from "@/jb/components/ui/Typography";
 import { RetryButton } from "@/jb/components/jobs/RetryButton";
+import { JobSideViewProvider } from "@/jb/components/jobs/JobSideViewProvider";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => search,
@@ -37,6 +38,7 @@ function HomePage() {
   const { initialData, query, error } = Route.useLoaderData();
 
   return (
+    <JobSideViewProvider>
     <div className="container mx-auto py-12 px-4">
       <div className="space-y-4 max-w-3xl mb-16">
         <Typography
@@ -90,5 +92,6 @@ function HomePage() {
         </div>
       </div>
     </div>
+    </JobSideViewProvider>
   );
 }
