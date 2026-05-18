@@ -62,12 +62,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Clean Job Data — Find Your Next Dream Job" },
+      { title: "CleanJobData — Build Your Own Job Board" },
       {
         name: "description",
         content:
           "Discover curated job opportunities for data professionals, engineers, and designers.",
       },
+      { property: "og:title", content: "CleanJobData — Build Your Own Job Board" },
+      { name: "twitter:title", content: "CleanJobData — Build Your Own Job Board" },
+      { name: "description", content: "Launch a job board with real, fresh job listings — 
+no scraping required. Powered by CleanJobData API." },
+      { property: "og:description", content: "Launch a job board with real, fresh job listings — 
+no scraping required. Powered by CleanJobData API." },
+      { name: "twitter:description", content: "Launch a job board with real, fresh job listings — 
+no scraping required. Powered by CleanJobData API." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/5VRtsoHV6GPoZQpFXZo8id6KsTv2/social-images/social-1779104029923-Screenshot_2026-05-17_at_3.29.02_PM.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/5VRtsoHV6GPoZQpFXZo8id6KsTv2/social-images/social-1779104029923-Screenshot_2026-05-17_at_3.29.02_PM.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
