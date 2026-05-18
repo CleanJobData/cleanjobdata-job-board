@@ -18,7 +18,10 @@ interface JobCardProps {
 export function JobCard({ job }: JobCardProps) {
   const sideView = useJobSideView();
   const { label: locationLabel } = clampLocationLabel(job.location);
-  const addedAgo = formatAddedAgo(job.published);
+  const [addedAgo, setAddedAgo] = React.useState<string>("");
+  React.useEffect(() => {
+    setAddedAgo(formatAddedAgo(job.published));
+  }, [job.published]);
 
   const salaryDisplay = React.useMemo(() => {
     if (job.salary_text) return job.salary_text;
@@ -32,14 +35,15 @@ export function JobCard({ job }: JobCardProps) {
   }, [job.salary_text, job.salary_min, job.salary_max, job.salary_currency]);
 
   return (
-    <a
-      href={`/jobs/${job.id}`}
-      className="block group h-full"
-      onClick={(e: React.MouseEvent) => {
-        if (sideView && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+    <div
+      role="button"
+      tabIndex={0}
+      className="block group h-full cursor-pointer"
+      onClick={() => sideView?.openJob(job.id)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          e.stopPropagation();
-          sideView.openJob(job.id);
+          sideView?.openJob(job.id);
         }
       }}
     >
@@ -63,9 +67,15 @@ export function JobCard({ job }: JobCardProps) {
                 </Typography>
                 <Typography
                   variant="h4"
-                  className="line-clamp-2 group-hover:text-primary transition-colors text-base sm:text-lg font-bold leading-tight"
+                  className="line-clamp-2 transition-colors text-base sm:text-lg font-bold leading-tight"
                 >
-                  {job.title}
+                  <Link
+                    href={`/jobs/${job.id}`}
+                    className="hover:text-primary hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {job.title}
+                  </Link>
                 </Typography>
               </div>
             </div>
@@ -119,6 +129,6 @@ export function JobCard({ job }: JobCardProps) {
           </div>
         </CardContent>
       </Card>
-    </a>
+    </div>
   );
 }
