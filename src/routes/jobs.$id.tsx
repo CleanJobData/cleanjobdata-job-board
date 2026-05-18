@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { FaChevronLeft } from "react-icons/fa6";
-import { getJobByIdAction } from "@/jb/server/jobs.functions";
+import { getJobByIdAction } from "@/jb/lib/jobs.functions";
 import { JobDetailView } from "@/jb/components/jobs/JobDetailView";
 import { Button } from "@/jb/components/ui/Button";
 

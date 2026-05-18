@@ -4,7 +4,7 @@ import * as React from "react";
 import { FaLocationDot, FaXmark } from "react-icons/fa6";
 import { cn, debounce } from "@/jb/lib/utils";
 import { GeoSuggestResult } from "@/jb/lib/api/types";
-import { getGeoSuggestions } from "@/jb/server/jobs.functions";
+import { getGeoSuggestions } from "@/jb/lib/jobs.functions";
 import {
   ComboboxRoot,
   ComboboxInput,
