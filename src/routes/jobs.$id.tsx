@@ -7,9 +7,21 @@ import { Button } from "@/jb/components/ui/Button";
 
 export const Route = createFileRoute("/jobs/$id")({
   loader: async ({ params }) => {
-    const result = await getJobByIdAction(params.id);
-    if ("__notFound" in result) throw notFound();
-    return { job: result };
+    try {
+      const result = await getJobByIdAction(params.id);
+      if ("__notFound" in result) throw notFound();
+      return { job: result, error: null as string | null };
+    } catch (err) {
+      if (err && typeof err === "object" && "isNotFound" in (err as object)) {
+        throw err;
+      }
+      console.error(err);
+      return {
+        job: null,
+        error:
+          "We couldn't load this job. The API may not be configured (set CLEANJOBDATA_API_URL and CLEANJOBDATA_API_KEY).",
+      };
+    }
   },
   head: ({ loaderData }) => ({
     meta: loaderData
