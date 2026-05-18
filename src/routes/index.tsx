@@ -4,7 +4,7 @@ import {
   normalizeSearchParams,
   mapSearchParamsToQuery,
 } from "@/jb/lib/jobs/query-mapper";
-import { getJobsAction } from "@/jb/server/jobs.functions";
+import { getJobsAction } from "@/jb/lib/jobs.functions";
 import { JobList } from "@/jb/components/jobs/JobList";
 import { JobFilters } from "@/jb/components/jobs/JobFilters";
 import { ActiveFilterChips } from "@/jb/components/jobs/ActiveFilterChips";
