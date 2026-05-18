@@ -1,4 +1,4 @@
-import { getApiConfig } from "./env";
+import { getApiConfig } from "./env.server";
 import { ApiErrorBody } from "./types";
 
 export class ApiError extends Error {

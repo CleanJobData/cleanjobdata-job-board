@@ -1,4 +1,4 @@
-import { apiFetch } from "./client";
+import { apiFetch } from "./client.server";
 import { Job, JobDetail, ListResponse } from "./types";
 import { ListQuery } from "../jobs/query-types";
 import { buildApiUrlParams } from "../jobs/query-mapper";
