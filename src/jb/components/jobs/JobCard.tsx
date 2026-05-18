@@ -32,13 +32,13 @@ export function JobCard({ job }: JobCardProps) {
   }, [job.salary_text, job.salary_min, job.salary_max, job.salary_currency]);
 
   return (
-    <Link
+    <a
       href={`/jobs/${job.id}`}
-      scroll={false}
       className="block group h-full"
       onClick={(e: React.MouseEvent) => {
         if (sideView && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
           e.preventDefault();
+          e.stopPropagation();
           sideView.openJob(job.id);
         }
       }}
