@@ -7,12 +7,24 @@ import { Button } from "@/jb/components/ui/Button";
 
 export const Route = createFileRoute("/jobs/$id")({
   loader: async ({ params }) => {
-    const result = await getJobByIdAction(params.id);
-    if ("__notFound" in result) throw notFound();
-    return { job: result };
+    try {
+      const result = await getJobByIdAction(params.id);
+      if ("__notFound" in result) throw notFound();
+      return { job: result, error: null as string | null };
+    } catch (err) {
+      if (err && typeof err === "object" && "isNotFound" in (err as object)) {
+        throw err;
+      }
+      console.error(err);
+      return {
+        job: null,
+        error:
+          "We couldn't load this job. The API may not be configured (set CLEANJOBDATA_API_URL and CLEANJOBDATA_API_KEY).",
+      };
+    }
   },
   head: ({ loaderData }) => ({
-    meta: loaderData
+    meta: loaderData?.job
       ? [
           {
             title: `${loaderData.job.title} at ${loaderData.job.company?.name || "Unknown"}`,
@@ -38,7 +50,7 @@ export const Route = createFileRoute("/jobs/$id")({
 });
 
 function JobPage() {
-  const { job } = Route.useLoaderData();
+  const { job, error } = Route.useLoaderData();
   return (
     <div className="container mx-auto py-12 px-4 md:px-10">
       <div className="mb-8">
@@ -54,7 +66,16 @@ function JobPage() {
           </Link>
         </Button>
       </div>
-      <JobDetailView job={job} />
+      {job ? (
+        <JobDetailView job={job} />
+      ) : (
+        <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-10 text-center">
+          <h2 className="text-xl font-semibold text-destructive mb-2">
+            Unable to load job
+          </h2>
+          <p className="text-sm text-muted-foreground">{error}</p>
+        </div>
+      )}
     </div>
   );
 }
