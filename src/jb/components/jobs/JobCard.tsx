@@ -119,6 +119,6 @@ export function JobCard({ job }: JobCardProps) {
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </a>
   );
 }
