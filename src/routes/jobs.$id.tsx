@@ -23,21 +23,58 @@ export const Route = createFileRoute("/jobs/$id")({
       };
     }
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData?.job
-      ? [
-          {
-            title: `${loaderData.job.title} at ${loaderData.job.company?.name || "Unknown"}`,
-          },
-          {
-            name: "description",
-            content:
-              loaderData.job.company?.description ||
-              `Apply for ${loaderData.job.title}.`,
-          },
-        ]
-      : [{ title: "Job" }],
-  }),
+  head: ({ params, loaderData }) => {
+    const job = loaderData?.job;
+    if (!job) return { meta: [{ title: "Job — CleanJobData" }] };
+    const company = job.company?.name || "a company";
+    const title = `${job.title} at ${company}`;
+    const rawDesc =
+      job.company?.description ||
+      `Apply for ${job.title} at ${company}. View role details, requirements, and compensation on CleanJobData's live job board demo powered by the CleanJobData jobs API.`;
+    const description =
+      rawDesc.length < 50
+        ? `${rawDesc} Apply now via CleanJobData's job board demo powered by the jobs posting API.`
+        : rawDesc.length > 160
+          ? rawDesc.slice(0, 157) + "..."
+          : rawDesc;
+    const url = `https://cleanjobdata-job-board.lovable.app/jobs/${params.id}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "article" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "JobPosting",
+            title: job.title,
+            description: job.description || description,
+            datePosted: job.published,
+            hiringOrganization: {
+              "@type": "Organization",
+              name: company,
+              sameAs: job.company?.website_url || undefined,
+              logo: job.company?.logo || undefined,
+            },
+            jobLocation: job.location
+              ? { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: job.location } }
+              : undefined,
+            employmentType: job.employment_type || undefined,
+            url,
+          }),
+        },
+      ],
+    };
+  },
   component: JobPage,
   notFoundComponent: () => (
     <div className="container mx-auto py-20 px-4 text-center">

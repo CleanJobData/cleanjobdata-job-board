@@ -1,0 +1,14 @@
+# CleanJobData
+
+> Jobs posting API for developers and companies building job boards. Fresh, structured job listings via REST — no scraping. This site is a live demo built on the CleanJobData API.
+
+CleanJobData provides clean, structured job data through a simple REST API. Use it to launch a job board, power talent tooling, or analyze the labor market. This site is a working reference implementation.
+
+## Pages
+
+- [Home](/): Live job board demo and product overview.
+
+## Optional
+
+- [API docs](https://cleanjobdata.com/docs): CleanJobData REST API reference.
+- [CleanJobData](https://cleanjobdata.com): Marketing site and pricing.

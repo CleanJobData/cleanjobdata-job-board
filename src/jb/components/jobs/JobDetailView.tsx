@@ -74,9 +74,9 @@ export function JobDetailView({ job }: JobDetailViewProps) {
               </span>
             </div>
 
-            <Typography variant="h2" className="text-2xl md:text-3xl font-bold leading-tight">
+            <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-tight text-foreground">
               {job.title}
-            </Typography>
+            </h1>
             
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm md:text-base text-muted-foreground">
               <div className="hidden md:flex items-center gap-1.5">
@@ -219,6 +219,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.linkedin_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="LinkedIn"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-[#0077B5] transition-colors"
                       >
                         <FaLinkedin className="h-3.5 w-3.5" />
@@ -229,6 +230,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.twitter_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Twitter"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-[#1DA1F2] transition-colors"
                       >
                         <FaTwitter className="h-3.5 w-3.5" />
@@ -239,6 +241,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Website"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-primary transition-colors"
                       >
                         <FaGlobe className="h-3.5 w-3.5" />
