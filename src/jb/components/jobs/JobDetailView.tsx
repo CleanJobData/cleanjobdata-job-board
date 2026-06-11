@@ -74,9 +74,9 @@ export function JobDetailView({ job }: JobDetailViewProps) {
               </span>
             </div>
 
-            <Typography variant="h2" className="text-2xl md:text-3xl font-bold leading-tight">
+            <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-tight text-foreground">
               {job.title}
-            </Typography>
+            </h1>
             
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm md:text-base text-muted-foreground">
               <div className="hidden md:flex items-center gap-1.5">
