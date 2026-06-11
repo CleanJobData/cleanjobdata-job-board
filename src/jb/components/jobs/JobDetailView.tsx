@@ -219,6 +219,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.linkedin_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="LinkedIn"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-[#0077B5] transition-colors"
                       >
                         <FaLinkedin className="h-3.5 w-3.5" />
@@ -229,6 +230,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.twitter_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Twitter"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-[#1DA1F2] transition-colors"
                       >
                         <FaTwitter className="h-3.5 w-3.5" />
@@ -239,6 +241,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                         href={job.company.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Website"
                         className="p-2 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-primary transition-colors"
                       >
                         <FaGlobe className="h-3.5 w-3.5" />
