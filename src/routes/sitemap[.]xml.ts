@@ -20,7 +20,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
 
         try {
-          const res = await listJobs({ limit: 100 } as never);
+          const res = await listJobs({ limit: 100 });
           const jobs = (res?.data ?? []) as Array<{ id: string; published?: string }>;
           for (const j of jobs) {
             entries.push({
