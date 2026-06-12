@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { listJobs } from "@/jb/lib/api/jobs.server";
 
 const BASE_URL = "https://cleanjobdata-job-board.lovable.app";
 
 interface SitemapEntry {
   path: string;
+  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
@@ -17,10 +19,26 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/", changefreq: "daily", priority: "1.0" },
         ];
 
+        try {
+          const res = await listJobs({ limit: 100 } as never);
+          const jobs = (res?.data ?? []) as Array<{ id: string; published?: string }>;
+          for (const j of jobs) {
+            entries.push({
+              path: `/jobs/${j.id}`,
+              lastmod: j.published ? new Date(j.published).toISOString().slice(0, 10) : undefined,
+              changefreq: "weekly",
+              priority: "0.7",
+            });
+          }
+        } catch (err) {
+          console.error("[sitemap] failed to fetch jobs", err);
+        }
+
         const urls = entries.map((e) =>
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
