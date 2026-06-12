@@ -166,7 +166,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
                   <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                     <FaBuilding className="h-4 w-4" />
                   </div>
-                  <Typography variant="h4" className="text-sm font-bold">
+                  <Typography variant="h2" className="text-sm font-bold">
                     About {job.company.name}
                   </Typography>
                 </div>
@@ -322,7 +322,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
             </div>
           )}
 
-          <Typography variant="h3" className="text-xl font-bold">
+          <Typography variant="h2" className="text-xl font-bold">
             Job Description
           </Typography>
           <div
@@ -335,7 +335,7 @@ export function JobDetailView({ job }: JobDetailViewProps) {
         <div className="hidden lg:block space-y-8">
           {job.company && (
             <div className="space-y-6 p-6 rounded-2xl border border-border bg-card shadow-sm">
-              <Typography variant="h4" className="font-bold">
+              <Typography variant="h2" className="font-bold text-base">
                 About the Company
               </Typography>
               

@@ -66,7 +66,7 @@ export function JobCard({ job }: JobCardProps) {
                   {job.company?.name || "Unknown Company"}
                 </Typography>
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   className="line-clamp-2 transition-colors text-base sm:text-lg font-bold leading-tight"
                 >
                   <Link

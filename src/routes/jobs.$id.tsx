@@ -107,9 +107,9 @@ function JobPage() {
         <JobDetailView job={job} />
       ) : (
         <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-10 text-center">
-          <h2 className="text-xl font-semibold text-destructive mb-2">
+          <h1 className="text-xl font-semibold text-destructive mb-2">
             Unable to load job
-          </h2>
+          </h1>
           <p className="text-sm text-muted-foreground">{error}</p>
         </div>
       )}
