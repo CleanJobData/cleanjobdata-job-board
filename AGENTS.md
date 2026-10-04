@@ -1,0 +1,3 @@
+- Keep public job browsing on a dedicated /jobs route and the landing on /, matching upstream navigation while allowing API-focused messaging.
+- Keep job-list interaction in the TanStack-compatible side-view provider: row clicks open the sheet and title links navigate to the detail page, preserving existing user behavior.
+- Keep external CleanJobData API calls inside server functions, since credentials must not reach the browser.
