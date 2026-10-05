@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FaGlobe } from "react-icons/fa6";
+import { Link } from "@/jb/lib/router-compat";
 import { CompanyLogo } from "@/jb/components/jobs/CompanyLogo";
 import { useJobSideView } from "@/jb/components/jobs/JobSideViewProvider";
 import { Job } from "@/jb/lib/api/types";
