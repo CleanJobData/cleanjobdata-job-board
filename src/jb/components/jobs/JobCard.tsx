@@ -1,10 +1,8 @@
 import * as React from "react";
-import { Link } from "@/jb/lib/router-compat";
-import { FaLocationDot, FaGlobe, FaDollarSign, FaClock } from "react-icons/fa6";
+import { FaGlobe } from "react-icons/fa6";
 import { CompanyLogo } from "@/jb/components/jobs/CompanyLogo";
 import { useJobSideView } from "@/jb/components/jobs/JobSideViewProvider";
 import { Job } from "@/jb/lib/api/types";
-import { Card, CardContent } from "@/jb/components/ui/Card";
 import { Badge } from "@/jb/components/ui/Badge";
 import { Typography } from "@/jb/components/ui/Typography";
 import { clampLocationLabel } from "@/jb/lib/clampLocation";
@@ -15,9 +13,20 @@ interface JobCardProps {
   job: Job;
 }
 
+/** One inline metadata item, "·"-separated from its neighbours rather than boxed - a job board's list reads as one scannable line of facts, not a grid of icon+label pairs pretending to be a dashboard widget. */
+function MetaItem({ children, accent }: { children: React.ReactNode; accent?: boolean }) {
+  return <span className={accent ? "text-primary font-medium" : undefined}>{children}</span>;
+}
+
+function Dot() {
+  return <span className="text-border select-none">·</span>;
+}
+
 export function JobCard({ job }: JobCardProps) {
   const sideView = useJobSideView();
   const { label: locationLabel } = clampLocationLabel(job.location);
+  // formatAddedAgo is relative to "now"; setting it in an effect keeps SSR
+  // and the first client render byte-identical.
   const [addedAgo, setAddedAgo] = React.useState<string>("");
   React.useEffect(() => {
     setAddedAgo(formatAddedAgo(job.published));
@@ -34,11 +43,43 @@ export function JobCard({ job }: JobCardProps) {
     return null;
   }, [job.salary_text, job.salary_min, job.salary_max, job.salary_currency]);
 
+  const metaItems: React.ReactNode[] = [];
+  if (locationLabel) metaItems.push(<MetaItem key="loc">{locationLabel}</MetaItem>);
+  if (job.has_remote) {
+    metaItems.push(
+      <MetaItem key="remote" accent>
+        <FaGlobe className="inline h-3 w-3 -mt-0.5 mr-1" />
+        Remote
+      </MetaItem>
+    );
+  }
+  if (salaryDisplay) metaItems.push(<MetaItem key="salary" accent>{salaryDisplay}</MetaItem>);
+  if (addedAgo) metaItems.push(<MetaItem key="ago">{addedAgo}</MetaItem>);
+
+  const badges = (
+    <>
+      {job.experience_level && (
+        <Badge variant="secondary" className="capitalize font-medium">
+          {job.experience_level.toLowerCase()}
+        </Badge>
+      )}
+      {job.employment_type && (
+        <Badge variant="outline" className="capitalize font-medium">
+          {job.employment_type.replace(/_/g, " ")}
+        </Badge>
+      )}
+    </>
+  );
+
   return (
+    // A full-bleed row, not a boxed card: JobGrid.tsx wraps the whole list
+    // in ONE panel, and rows are separated by a hairline divider + a quiet
+    // background tint on hover. The card click opens the side sheet; the
+    // job title is a link to the full detail page.
     <div
       role="button"
       tabIndex={0}
-      className="block group h-full cursor-pointer"
+      className="group block cursor-pointer"
       onClick={() => sideView?.openJob(job.id)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -47,88 +88,57 @@ export function JobCard({ job }: JobCardProps) {
         }
       }}
     >
-      <Card className="hover:border-primary/50 transition-all duration-300 hover:shadow-md h-full flex flex-col">
-        <CardContent className="p-4 sm:p-6 space-y-5 flex flex-col flex-1">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <CompanyLogo
-                src={job.company?.logo}
-                fallbackIcon="briefcase"
-                className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-muted p-1 border border-border/50 group-hover:border-primary/20 transition-colors"
-                imageClassName="rounded-lg"
-                iconClassName="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground/50"
-              />
-              <div className="space-y-1 min-w-0">
-                <Typography
-                  variant="small"
-                  className="text-muted-foreground font-semibold uppercase tracking-wider text-[10px]"
+      <div className="flex items-start gap-3 sm:gap-4 px-4 sm:px-5 py-4 transition-colors hover:bg-muted/50">
+        <CompanyLogo
+          src={job.company?.logo}
+          fallbackIcon="briefcase"
+          className="h-10 w-10 rounded-lg bg-muted border border-border shrink-0"
+          imageClassName="rounded-lg p-1"
+          iconClassName="h-4 w-4 text-muted-foreground"
+        />
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <Typography className="font-semibold leading-snug truncate group-hover:text-primary transition-colors">
+                <Link
+                  href={`/jobs/${job.id}`}
+                  className="hover:text-primary hover:underline"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  {job.company?.name || "Unknown Company"}
-                </Typography>
-                <Typography
-                  variant="h3"
-                  className="line-clamp-2 transition-colors text-base sm:text-lg font-bold leading-tight"
-                >
-                  <Link
-                    href={`/jobs/${job.id}`}
-                    className="hover:text-primary hover:underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {job.title}
-                  </Link>
-                </Typography>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
-            <div className="flex gap-2.5 text-muted-foreground">
-              <div className="flex shrink-0 pt-1">
-                <FaLocationDot className="h-3 w-3" />
-              </div>
-              <span className="line-clamp-1 font-medium">{locationLabel}</span>
-            </div>
-            
-            {salaryDisplay && (
-              <div className="flex gap-2.5 text-foreground">
-                <div className="flex shrink-0 pt-1.5 text-primary">
-                  <FaDollarSign className="h-3 w-3" />
-                </div>
-                <span className="line-clamp-1 font-bold">{salaryDisplay}</span>
-              </div>
-            )}
-
-            <div className="flex gap-2.5 text-muted-foreground">
-              <div className="flex shrink-0 pt-1.5">
-                <FaClock className="h-2.5 w-2.5" />
-              </div>
-              <span className="font-medium">{addedAgo}</span>
+                  {job.title}
+                </Link>
+              </Typography>
+              <Typography variant="small" className="text-muted-foreground truncate">
+                {job.company?.name || "Unknown Company"}
+              </Typography>
             </div>
 
-            {job.has_remote && (
-              <div className="flex gap-2.5 text-emerald-600 dark:text-emerald-400">
-                <div className="flex shrink-0 pt-1.5">
-                  <FaGlobe className="h-2.5 w-2.5" />
-                </div>
-                <span className="font-bold">Remote</span>
+            {(job.experience_level || job.employment_type) && (
+              <div className="hidden sm:flex flex-wrap justify-end gap-1.5 shrink-0">
+                {badges}
               </div>
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2 pt-1 mt-auto">
-            {job.experience_level && (
-              <Badge variant="secondary" className="capitalize px-2.5 py-0.5 text-[11px] font-bold tracking-wide bg-muted/50 border-transparent">
-                {job.experience_level.toLowerCase()}
-              </Badge>
-            )}
-            {job.employment_type && (
-              <Badge variant="outline" className="capitalize px-2.5 py-0.5 text-[11px] font-bold tracking-wide border-border/60">
-                {job.employment_type.replace("_", " ")}
-              </Badge>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+          {metaItems.length > 0 && (
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+              {metaItems.map((item, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <Dot />}
+                  {item}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
+
+          {(job.experience_level || job.employment_type) && (
+            <div className="mt-2 flex flex-wrap gap-1.5 sm:hidden">
+              {badges}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
