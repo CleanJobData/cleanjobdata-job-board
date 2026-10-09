@@ -42,7 +42,7 @@ function ErrorComponent({ error, reset }: import("@tanstack/react-router").Error
     <div className="flex min-h-[60vh] items-center justify-center px-4 text-center">
       <div>
         <h1 className="text-xl font-semibold">Something went wrong</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+        <p className="mt-2 text-sm text-muted-foreground">{(error as Error)?.message}</p>
         <button
           onClick={() => {
             router.invalidate();
