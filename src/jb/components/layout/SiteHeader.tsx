@@ -37,6 +37,9 @@ export function SiteHeader() {
           </Link>
 
           <nav className="flex items-center gap-3">
+            <Link href="/jobs" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+              Browse Jobs
+            </Link>
             <a
               href="https://cleanjobdata.com/docs"
               target="_blank"

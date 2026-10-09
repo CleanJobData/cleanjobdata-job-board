@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image } from "@/jb/lib/router-compat";
+import { Image, Link } from "@/jb/lib/router-compat";
 import { Typography } from "@/jb/components/ui/Typography";
 
 export function SiteFooter() {
@@ -28,6 +28,7 @@ export function SiteFooter() {
         </div>
         
         <div className="flex items-center gap-6">
+          <Link href="/jobs" className="text-sm text-muted-foreground hover:text-primary transition-colors">Browse Jobs</Link>
           <a href="https://cleanjobdata.com/docs" className="text-sm text-muted-foreground hover:text-primary transition-colors">API Docs</a>
           <a href="https://cleanjobdata.com/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy</a>
           <a href="https://cleanjobdata.com/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms</a>
