@@ -80,7 +80,7 @@ export const Route = createFileRoute("/jobs/$id")({
     <div className="container mx-auto py-20 px-4 text-center">
       <h1 className="text-2xl font-bold mb-4">Job not found</h1>
       <Button asChild>
-        <Link to="/">Back to jobs</Link>
+        <Link to="/jobs">Back to jobs</Link>
       </Button>
     </div>
   ),
@@ -97,7 +97,7 @@ function JobPage() {
           asChild
           className="-ml-2 text-muted-foreground"
         >
-          <Link to="/">
+          <Link to="/jobs">
             <FaChevronLeft className="mr-1 h-4 w-4" />
             Back to Jobs
           </Link>
