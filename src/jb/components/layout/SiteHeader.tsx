@@ -1,9 +1,40 @@
 import * as React from "react";
 import { Link } from "@/jb/lib/router-compat";
 import { Image } from "@/jb/lib/router-compat";
+import { useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/jb/components/theme/ThemeToggle";
 
 export function SiteHeader() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [signedIn, setSignedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    let mounted = true;
+    supabase.auth.getUser().then(({ data }) => {
+      if (mounted) setSignedIn(!!data.user);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") setSignedIn(true);
+      if (event === "SIGNED_OUT") setSignedIn(false);
+    });
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
   return (
     <>
       <div className="w-full bg-primary text-primary-foreground text-sm">
@@ -48,14 +79,36 @@ export function SiteHeader() {
             >
               API Docs
             </a>
-            <a
-              href="https://cleanjobdata.com"
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              Get the API
-            </a>
+            {signedIn ? (
+              <>
+                <Link
+                  href="/my-jobs"
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  My Jobs
+                </Link>
+                <Link
+                  href="/post-job"
+                  className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Post a Job
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/auth"
+                className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Sign in
+              </Link>
+            )}
             <ThemeToggle />
           </nav>
         </div>
