@@ -5,6 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/jb/components/theme/ThemeToggle";
+import { Button } from "@/jb/components/ui/Button";
 
 export function SiteHeader() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export function SiteHeader() {
         </div>
       </div>
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 min-h-16 py-3 flex flex-wrap items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logo.svg"
@@ -67,7 +68,7 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <nav className="flex items-center gap-3">
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-3">
             <Link href="/jobs" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
               Browse Jobs
             </Link>
@@ -87,28 +88,25 @@ export function SiteHeader() {
                 >
                   My Jobs
                 </Link>
-                <Link
-                  href="/post-job"
-                  className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-                >
-                  Post a Job
-                </Link>
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={handleSignOut}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                 >
                   Sign out
-                </button>
+                </Button>
               </>
             ) : (
               <Link
                 href="/auth"
-                className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 Sign in
               </Link>
             )}
+            <Button href="/post-job" size="sm">
+              Post a Job
+            </Button>
             <ThemeToggle />
           </nav>
         </div>

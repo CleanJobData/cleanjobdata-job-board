@@ -1,3 +1,4 @@
+- [ ] Make Post a Job visible in the header when signed out and verify navigation to sign-in.
 - [ ] Port upstream landing page and public jobs list layout while preserving the CleanJobData API banner and links.
 - [ ] Keep card-side-panel and title-full-page behavior, with live API filtering and detail views.
 - [ ] Port upstream account, resume, applications, posting, alerts, admin and sync features to Lovable Cloud. Blocked by the breadth of the Next.js-specific backend and service setup; requires a dedicated migration pass.
